@@ -1,0 +1,12 @@
+(rule
+ (target chcp.ml)
+ (deps chcp.mli)
+ (action (run %{bin:gen_js_api} %{deps})))
+
+(library
+ (public_name chcp)
+ (name chcp)
+ (modes chcp)
+ (librairies gen_js_api js_of_ocaml js_of_ocaml-ppx)
+ (preprocess (pps js_of_ocaml-ppx))
+)
