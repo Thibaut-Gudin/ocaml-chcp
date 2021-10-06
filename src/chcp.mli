@@ -28,5 +28,6 @@ val description : error -> string [@@js.get]
 
 type data
 
-val fetch_update : ?options:update_options -> (error -> data -> unit) -> unit
+val fetch_update :
+  ?options:update_options -> (error option -> data -> unit) -> unit
   [@@js.global "chcp.fetchUpdate"]
