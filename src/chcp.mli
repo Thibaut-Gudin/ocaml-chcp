@@ -1,12 +1,12 @@
 type configure_options
 
 val configure_options :
-  ?config_file:string ->
-  ?auto_download:bool ->
-  ?auto_install:bool ->
+  ?config_file:(string[@js "config-file"]) ->
+  ?auto_download:(bool[@js "auto-download"]) ->
+  ?auto_install:(bool[@js "auto-install"]) ->
   unit ->
   configure_options
-  [@@js.builder] [@@js.verbatim_names]
+  [@@js.builder]
 
 val configure : ?options:configure_options -> (unit -> unit) -> unit
   [@@js.global "chcp.configure"]
@@ -14,8 +14,11 @@ val configure : ?options:configure_options -> (unit -> unit) -> unit
 type update_options
 
 val update_options :
-  ?config_file:string -> ?request_headers:string list -> unit -> update_options
-  [@@js.builder] [@@js.verbatim_names]
+  ?config_file:(string[@js "config-file"]) ->
+  ?request_headers:(string list[@js "request-headers"]) ->
+  unit ->
+  update_options
+  [@@js.builder]
 
 type error
 
@@ -25,5 +28,6 @@ val description : error -> string [@@js.get]
 
 type data
 
-val fetch_update : ?options:update_options -> (error -> data -> unit) -> unit
+val fetch_update :
+  ?options:update_options -> (error option -> data -> unit) -> unit
   [@@js.global "chcp.fetchUpdate"]
